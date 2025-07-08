@@ -14,8 +14,10 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("jwt");
-    navigate("/");
+    navigate("/", { replace: true });
+    window.location.reload(); // Force state and route refresh
   };
+  
 
   if (!isLoggedIn) return null;
 

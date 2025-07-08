@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const activityLevels = ["Passive", "Moderate", "Active"];
 const goals = ["Lose Weight", "Maintain Weight", "Gain Weight"];
 const gender=["Male","Female"]
 
@@ -19,13 +18,14 @@ export default function PredictForm() {
     gender: "",
     height: "",
     weight: "",
-    activityLevel: "",
+    duration: "",
+    heart_rate : "",
+    body_temp:"",
     goal: "",
   });
 
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -37,11 +37,13 @@ export default function PredictForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("jwt");
+    console.log(token)
 
-    const { age, gender, height, weight, activityLevel, goal } = formData;
-
+    const { age, gender, height, weight, duration , heart_rate ,body_temp, goal } = formData;
+    console.log(body_temp)
+    console.log(formData)
     // Basic validation
-    if (!age || !gender || !height || !weight || !activityLevel || !goal) {
+    if (!age || !gender || !height || !weight || !body_temp  || !goal || !duration || !heart_rate) {
       return alert("Please fill out all fields.");
     }
 
@@ -57,6 +59,7 @@ export default function PredictForm() {
       });
 
       const data = await res.json();
+      console.log(data)
       setResult(data);
       setLoading(false);
     } catch (error) {
@@ -116,20 +119,32 @@ export default function PredictForm() {
             onChange={handleChange}
           />
           <TextField
-            select
             fullWidth
-            label="Activity Level"
-            name="activityLevel"
+            label="Body Temp (C)"
+            name="body_temp"
+            type="number"
             margin="normal"
-            value={formData.activityLevel}
+            value={formData.body_temp}
             onChange={handleChange}
-          >
-            {activityLevels.map((level) => (
-              <MenuItem key={level} value={level}>
-                {level}
-              </MenuItem>
-            ))}
-          </TextField>
+          />
+          <TextField
+            fullWidth
+            label="Excercise Duration (Min)"
+            name="duration"
+            type="number"
+            margin="normal"
+            value={formData.duration}
+            onChange={handleChange}
+          />
+          <TextField
+            fullWidth
+            label="Average Heart Rate (BPM)"
+            name="heart_rate"
+            type="number"
+            margin="normal"
+            value={formData.heart_rate}
+            onChange={handleChange}
+          />
           <TextField
             select
             fullWidth
@@ -161,10 +176,10 @@ export default function PredictForm() {
           <Paper elevation={2} sx={{ mt: 4, p: 3 }}>
             <Typography variant="h6">Prediction Result:</Typography>
             <Typography>
-              <strong>Calories:</strong> {result.calories} kcal
+              <strong>Calories Burnt:</strong> {result.roundedCalories} kcal
             </Typography>
             <Typography>
-              <strong>Workout:</strong> {result.workout}
+              <strong>Workout Suggested:</strong> {result.workout}
             </Typography>
           </Paper>
         )}

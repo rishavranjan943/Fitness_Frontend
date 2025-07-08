@@ -9,8 +9,9 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const activityLevels = ["Sedentary", "Moderate", "Active"];
-const goals = ["Lose", "Maintain", "Gain"];
+const activityLevels = ["Passive", "Moderate", "Active"];
+const goals = ["Lose Weight", "Maintain Weight", "Gain Weight"];
+const gender=["Male","Female"]
 
 export default function PredictForm() {
   const [formData, setFormData] = useState({
@@ -82,13 +83,20 @@ export default function PredictForm() {
             onChange={handleChange}
           />
           <TextField
+            select
             fullWidth
             label="Gender"
             name="gender"
             margin="normal"
             value={formData.gender}
             onChange={handleChange}
-          />
+          >
+            {gender.map((level) => (
+              <MenuItem key={level} value={level}>
+                {level}
+              </MenuItem>
+            ))}
+          </TextField>
           <TextField
             fullWidth
             label="Height (cm)"

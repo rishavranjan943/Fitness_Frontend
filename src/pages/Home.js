@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function Home() {
   return (
     <Container sx={{ textAlign: "center", mt: 12 }}>
-      <Typography variant="h3" gutterBottom>Welcome to CodeMeet</Typography>
+      <Typography variant="h3" gutterBottom>Welcome to Fitness  Helper</Typography>
       <Typography variant="subtitle1">Choose a login method</Typography>
 
       <Box mt={4}>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Typography, Button, Box, Paper } from "@mui/material";
+import { Container, Typography, Button, Paper } from "@mui/material";
 
 export default function Dashboard() {
     const [email, setEmail] = useState("");
@@ -19,10 +19,6 @@ export default function Dashboard() {
         }
     }, []);
 
-    const logout = () => {
-        localStorage.removeItem("jwt");
-        navigate("/");
-    };
 
     return (
         <Container maxWidth="sm" sx={{ mt: 8 }}>

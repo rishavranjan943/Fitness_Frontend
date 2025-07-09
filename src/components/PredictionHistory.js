@@ -7,7 +7,7 @@ export default function PredictionHistory() {
   useEffect(() => {
     const fetchHistory = async () => {
       const token = localStorage.getItem("jwt");
-      const res = await fetch("http://localhost:4000/api/predict/history", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/predict/history`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await res.json();
